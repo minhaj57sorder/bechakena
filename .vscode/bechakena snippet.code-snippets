@@ -12,5 +12,5 @@
 		  "<i className=\"${1:fas fa-user}\"></i>"
 		],
 		"description": "fontawesome snippet"
-	  }
+	  },
 }

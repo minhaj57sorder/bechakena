@@ -10,24 +10,20 @@ const CartScreen = () => {
     const {id} = useParams()
     // console.log(search, id)
     const qty = search ? Number(search.split('=')[1]):1
-    const cart = useSelector(state=>state.cart)
-    const {cartItems}=cart
+    const {cartItems} = useSelector(state=>state.cart)
     // console.log(cartItems)
+
     const dispatch = useDispatch()
     useEffect(()=>{
-        if(id){
-            dispatch(addToCart(id,qty))
-        }
+        if(id) dispatch(addToCart(id,qty))
     },[dispatch, id, qty])
+
     const removeFromCartHandler=(productId)=>{
         dispatch(removeFromCart(productId))
         // console.log("cart removed",productId)
     }
     const navigate = useNavigate()
-    const checkoutHandler = ()=>{
-        navigate(`/login?redirect=/shipping`)
-        console.log("proceed to checkout")
-    }
+    const checkoutHandler = ()=> navigate(`/login?redirect=/shipping`)
     return (
         <Row>
             <Col md={8}>
