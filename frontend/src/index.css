@@ -17,3 +17,6 @@ main{
 .rating{
   margin: 1rem 0;
 }
+form div{
+  margin-bottom: 10px;
+}
