@@ -34,7 +34,7 @@ const addOrderItems =  expressAsyncHandler(async (req, res) => {
 // @route   GET /api/orders/:id
 // @access  Privet
 const getOrderById =  expressAsyncHandler(async (req, res) => {
-    const order = await Order.findById(req.params.id).populate('user', 'name, email')
+    const order = await Order.findById(req.params.id).populate('user', 'name email')
 
     if(order){
         res.json(order)
