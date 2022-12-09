@@ -11,7 +11,11 @@ node_modules/
 /coverage
 
 # production
-/frontend/build
+/frontend/public
+/frontend/src
+/frontend/package-lock.json
+/frontend/package.json
+/frontend/README.md
 
 # misc
 .DS_Store
