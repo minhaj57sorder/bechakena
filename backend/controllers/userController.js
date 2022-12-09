@@ -11,6 +11,7 @@ const authUser =  expressAsyncHandler(async (req, res) => {
           _id: user._id,
           name: user.name,
           email: user.email,
+          isAdmin: user.isAdmin,
           isAuth: user.isAuth,
           token: generateToken(user._id),
         })
@@ -101,9 +102,72 @@ const updateUserProfile =  expressAsyncHandler(async (req, res) => {
     }
 })
 
+// @desc Get all users
+// @route PUT api/users
+// @acess Privet/Admin
+const getUsers =  expressAsyncHandler(async (req, res) => {
+    const users = await User.find({})
+    res.json(users)
+})
+
+// @desc Delete user
+// @route PUT api/users/:id
+// @acess Privet/Admin
+const deleteUser =  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id)
+    if(user){
+      await user.remove()
+      res.json({message: 'User removed'})
+    }else{
+      res.status(404)
+      throw new Error('User not found')
+    }
+})
+
+// @desc get user
+// @route Put api/users/:id
+// @acess Privet/Admin
+const getUserById =  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id).select('-password')
+    if(user){
+      res.json(user)
+    }else{
+      res.status(404)
+      throw new Error('User not found')
+    }
+})
+// Update user profile
+// route PUT api/user/profile
+// acess Privet
+const updateUser =  expressAsyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id)
+
+  if(user){
+    user.name = req.body.name || user.name
+    user.email = req.body.email || user.email
+    user.isAdmin = req.body.isAdmin
+    const updatedUser = await user.save()
+      res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+      res.json({
+          _id: updatedUser._id,
+          name: updatedUser.name,
+          email: updatedUser.email,
+          isAdmin: updatedUser.isAdmin
+      })
+  }else{
+      res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+      res.status(404)
+      throw new Error('User not found')
+  }
+})
+
 export {
     authUser,
     registerUser,
     getUserProfile,
-    updateUserProfile
+    updateUserProfile,
+    getUsers,
+    deleteUser,
+    getUserById,
+    updateUser
 }

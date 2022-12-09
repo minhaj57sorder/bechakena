@@ -13,4 +13,11 @@
 		],
 		"description": "fontawesome snippet"
 	  },
+	"console snippet": {
+		"prefix": "clg",
+		"body": [
+		  "console.log(\"${1:example}\""
+		],
+		"description": "console snippet"
+	  },
 }
